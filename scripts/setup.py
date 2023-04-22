@@ -49,7 +49,7 @@ def on_ui_tabs():
                 )
             )
 
-        return ((view, "无边图像浏览" if locale == "zh" else "Infinite image browsing", "infinite-image-browsing"),)
+        return ((view, "无边图像浏览1" if locale == "zh" else "Infinite image browsing1", "infinite-image-browsing1"),)
 
 
 
