@@ -143,7 +143,7 @@ send_img_path = {"value": ""}
 
 
 def infinite_image_browsing_api(_: Any, app: FastAPI):
-    pre = "/img2texts"
+    pre = "/infinite_image_browsing"
     app.mount(
         f"{pre}/fe-static",
         StaticFiles(directory=f"{cwd}/vue/dist"),
