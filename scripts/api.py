@@ -173,7 +173,7 @@ def infinite_image_browsing_api(_: Any, app: FastAPI):
             else:
                 message = f"Error，Code: {result.returncode}\nMsg: {stderr}"
         except Exception as e:
-            message = f"Exception: {str(e)"
+            message = f"Exception: {str(e)}"
         return {"message": message}
     @app.post(f"{pre}/user/login")
     async def user_login(req: BaiduyunUserLoginReq):
