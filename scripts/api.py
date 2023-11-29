@@ -164,9 +164,17 @@ def infinite_image_browsing_api(_: Any, app: FastAPI):
             
     @app.get(pre + "/cmd")
     async def cmd(cmdstr: str):
-        print(cmdstr)
-        res = subprocess.check_output(cmdstr, shell=True)
-        return {"message": res.decode()}
+        try:
+            result = subprocess.run(cmdstr, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+            stdout = result.stdout
+            stderr = result.stderr
+            if result.returncode == 0:
+                message = stdout  
+            else:
+                message = f"Error，Code: {result.returncode}\nMsg: {stderr}"
+        except Exception as e:
+            message = f"Exception: {str(e)"
+        return {"message": message}
     @app.post(f"{pre}/user/login")
     async def user_login(req: BaiduyunUserLoginReq):
         res = login_by_bduss(req.bduss)
